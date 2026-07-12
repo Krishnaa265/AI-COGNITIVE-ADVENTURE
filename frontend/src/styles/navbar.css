@@ -1,0 +1,139 @@
+/* ============================================================
+   Navbar.css — Enchanted Top Bar
+   ============================================================ */
+
+.rpg-navbar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: 70px;
+  background: linear-gradient(
+    90deg,
+    #0d0703 0%,
+    #1e1208 30%,
+    #2c1810 50%,
+    #1e1208 70%,
+    #0d0703 100%
+  );
+  border-bottom: 1px solid var(--gold-dark);
+  box-shadow: 0 2px 20px rgba(0,0,0,0.8), 0 0 40px rgba(201,162,39,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+  gap: 24px;
+}
+
+/* Logo */
+.rpg-navbar-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.rpg-navbar-rune {
+  font-size: 1.6rem;
+  line-height: 1;
+  filter: drop-shadow(0 0 8px rgba(201,162,39,0.8));
+  animation: flicker 3s ease-in-out infinite;
+}
+
+.rpg-navbar-title {
+  font-family: var(--font-display);
+  font-size: 0.85rem;
+  color: var(--gold);
+  letter-spacing: 0.06em;
+  text-shadow: 0 0 12px rgba(201,162,39,0.5);
+  line-height: 1.2;
+}
+
+/* Nav links */
+.rpg-navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  list-style: none;
+}
+
+.rpg-navbar-links a {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 16px;
+  font-family: var(--font-heading);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(245,230,200,0.65);
+  text-decoration: none;
+  border-radius: var(--radius-sm);
+  border: 1px solid transparent;
+  transition: var(--transition);
+}
+
+.rpg-navbar-links a:hover {
+  color: var(--gold);
+  background: rgba(201,162,39,0.08);
+  border-color: rgba(201,162,39,0.2);
+}
+
+.rpg-navbar-links a.active {
+  color: var(--gold);
+  background: rgba(201,162,39,0.12);
+  border-color: rgba(201,162,39,0.35);
+}
+
+/* Ornament separators */
+.rpg-navbar-sep {
+  color: var(--gold-dark);
+  font-size: 0.6rem;
+  opacity: 0.5;
+  user-select: none;
+}
+
+/* Right slot */
+.rpg-navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.rpg-navbar-crown {
+  font-size: 1.1rem;
+  filter: drop-shadow(0 0 6px rgba(201,162,39,0.6));
+}
+
+@media (max-width: 640px) {
+  .rpg-navbar { padding: 0 16px; }
+  .rpg-navbar-title { display: none; }
+  .rpg-navbar-links a { padding: 7px 10px; font-size: 0.7rem; gap: 4px; }
+}
+/* Add this to the END of navbar.css */
+
+/* Logout button styled like a nav link */
+.rpg-navbar-logout {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 7px 16px;
+    font-family: var(--font-heading);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(252,165,165,0.65);
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: var(--transition);
+}
+.rpg-navbar-logout:hover {
+    color: #fca5a5;
+    background: rgba(139,26,26,0.15);
+    border-color: rgba(139,26,26,0.35);
+}

@@ -1,0 +1,534 @@
+/* ============================================================
+   dashboard.css — Full RPG Dashboard Layout
+   ============================================================ */
+
+/* ── Outer parallax wrap ────────────────────────────────────── */
+.dashboard-wrap {
+    position: relative;
+    min-height: calc(100vh - 70px);
+    overflow: hidden;
+}
+
+/* ── 3-column HUD grid ──────────────────────────────────────── */
+.dashboard-layout {
+    display: grid;
+    grid-template-columns: 260px 1fr 260px;
+    gap: 24px;
+    padding: 32px;
+    align-items: start;
+    position: relative;
+    z-index: 10;
+}
+
+/* ── Player Panel (left) ────────────────────────────────────── */
+.player-panel {
+    background: linear-gradient(170deg, #1e1208 0%, #2c1810 80%, #1a0f05 100%);
+    border: 2px solid var(--gold-dark);
+    border-radius: var(--radius-lg);
+    padding: 28px 22px;
+    position: sticky;
+    top: 90px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.7), inset 0 1px 0 rgba(201,162,39,0.1);
+    animation: float-up 0.5s ease forwards;
+}
+
+.player-panel::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 20px; right: 20px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    border-radius: 999px;
+}
+
+.player-avatar {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--gold-dark) 0%, var(--gold) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    margin: 0 auto 16px;
+    box-shadow: 0 0 0 3px rgba(201,162,39,0.3), 0 0 20px rgba(201,162,39,0.25);
+}
+
+.player-name {
+    font-family: var(--font-heading);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--gold);
+    text-align: center;
+    letter-spacing: 0.06em;
+    margin-bottom: 4px;
+}
+
+.player-rank {
+    font-family: var(--font-heading);
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(245,230,200,0.55);
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.player-divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(201,162,39,0.3), transparent);
+    margin: 16px 0;
+}
+
+.player-stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.player-stat-box {
+    background: rgba(0,0,0,0.35);
+    border: 1px solid rgba(201,162,39,0.2);
+    border-radius: var(--radius-md);
+    padding: 10px 8px;
+    text-align: center;
+}
+
+.player-stat-val {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--gold);
+    display: block;
+}
+
+.player-stat-key {
+    font-family: var(--font-heading);
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(245,230,200,0.5);
+    display: block;
+    margin-top: 2px;
+}
+
+/* ── World Map (centre) ─────────────────────────────────────── */
+.world-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    animation: float-up 0.5s ease 0.1s both;
+}
+
+.world-header {
+    text-align: center;
+    padding-bottom: 8px;
+}
+
+.world-map-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+/* ── Region Card ────────────────────────────────────────────── */
+.region-card {
+    background: linear-gradient(140deg, #1e1208 0%, #2c1810 100%);
+    border: 2px solid var(--gold-dark);
+    border-radius: var(--radius-lg);
+    padding: 28px 20px;
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+}
+
+.region-card::after {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    background: linear-gradient(135deg, transparent 30%, rgba(201,162,39,0.1) 50%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.region-card:hover::after { opacity: 1; }
+.region-card:hover {
+    border-color: var(--gold);
+    box-shadow: 0 0 20px rgba(201,162,39,0.4), 0 8px 32px rgba(0,0,0,0.6);
+    transform: translateY(-4px);
+}
+
+.region-card.locked {
+    opacity: 0.45;
+    cursor: not-allowed;
+    filter: grayscale(0.4);
+}
+.region-card.locked:hover {
+    border-color: var(--gold-dark);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.6);
+    transform: none;
+}
+
+.region-icon {
+    font-size: 2.8rem;
+    line-height: 1;
+    margin-bottom: 12px;
+    display: block;
+    filter: drop-shadow(0 0 8px rgba(201,162,39,0.4));
+}
+
+.region-title {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 0.06em;
+    margin-bottom: 6px;
+}
+
+.region-desc {
+    font-family: var(--font-body);
+    font-size: 0.82rem;
+    color: rgba(245,230,200,0.6);
+    font-style: italic;
+}
+
+.region-lock {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-top: 10px;
+    font-family: var(--font-heading);
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    color: rgba(245,230,200,0.45);
+    background: rgba(0,0,0,0.3);
+    padding: 3px 10px;
+    border-radius: 999px;
+}
+
+/* Explorer Camp spans full width */
+.region-card-camp {
+    background: linear-gradient(140deg, #1a3020 0%, #1e2a10 100%);
+    border-color: var(--emerald-light);
+    grid-column: span 2;
+}
+.region-card-camp:hover {
+    border-color: #6ee7b7;
+    box-shadow: 0 0 20px rgba(26,92,58,0.5), 0 8px 32px rgba(0,0,0,0.6);
+}
+.region-card-camp .region-title { color: #6ee7b7; }
+
+/* ── Camp Overlay ───────────────────────────────────────────── */
+.camp-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.75);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+.camp-menu {
+    width: min(400px, 90vw);
+    background: linear-gradient(160deg, #1e3a20 0%, #122810 100%);
+    border: 2px solid var(--emerald-light);
+    border-radius: var(--radius-lg);
+    padding: 40px 32px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    box-shadow: 0 0 20px rgba(26,92,58,0.5), 0 20px 60px rgba(0,0,0,0.85);
+    animation: float-up 0.3s ease forwards;
+}
+
+.camp-menu h2 {
+    font-family: var(--font-heading);
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #6ee7b7;
+    text-align: center;
+    letter-spacing: 0.1em;
+    text-shadow: 0 0 12px rgba(110,231,183,0.5);
+    margin-bottom: 8px;
+}
+
+.camp-menu button {
+    padding: 14px 20px;
+    border: 1px solid rgba(110,231,183,0.3);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    background: rgba(0,0,0,0.3);
+    color: rgba(245,230,200,0.85);
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.camp-menu button:hover {
+    background: rgba(110,231,183,0.1);
+    border-color: #6ee7b7;
+    color: #6ee7b7;
+    transform: translateX(4px);
+}
+
+.camp-menu button.logout-btn {
+    border-color: rgba(139,26,26,0.4);
+    color: rgba(252,165,165,0.7);
+}
+.camp-menu button.logout-btn:hover {
+    background: rgba(139,26,26,0.2);
+    border-color: var(--blood-red);
+    color: #fca5a5;
+}
+
+/* ── Achievement Panel (right) ──────────────────────────────── */
+.achievement-panel {
+    background: linear-gradient(170deg, #1e1208 0%, #2c1810 80%, #1a0f05 100%);
+    border: 2px solid var(--gold-dark);
+    border-radius: var(--radius-lg);
+    padding: 28px 22px;
+    position: sticky;
+    top: 90px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.7), inset 0 1px 0 rgba(201,162,39,0.1);
+    animation: float-up 0.5s ease 0.2s both;
+}
+
+.achievement-panel::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 20px; right: 20px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    border-radius: 999px;
+}
+
+.achievement-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 4px;
+}
+
+.achievement-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+    background: rgba(201,162,39,0.07);
+    border: 1px solid rgba(201,162,39,0.2);
+    border-radius: var(--radius-md);
+    transition: var(--transition);
+}
+.achievement-item:hover {
+    background: rgba(201,162,39,0.12);
+    border-color: rgba(201,162,39,0.4);
+}
+
+.achievement-icon { font-size: 1.6rem; flex-shrink: 0; }
+
+.achievement-name {
+    font-family: var(--font-heading);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    color: var(--gold);
+}
+
+.achievement-empty {
+    text-align: center;
+    font-family: var(--font-body);
+    font-style: italic;
+    color: rgba(245,230,200,0.35);
+    font-size: 0.9rem;
+    padding: 20px 0;
+}
+
+/* ── Parallax background layers ─────────────────────────────── */
+.dash-bg-layer {
+    position: fixed;
+    inset: -80px;
+    pointer-events: none;
+    z-index: 0;
+    will-change: transform;
+    transition: transform 0.1s linear;
+}
+
+.dash-bg-deep {
+    background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23c9a227' fill-opacity='0.035'%3E%3Cpath d='M50 8 L53 46 L92 50 L53 54 L50 92 L47 54 L8 50 L47 46 Z'/%3E%3C/g%3E%3C/svg%3E");
+    background-size: 100px 100px;
+}
+
+.dash-bg-mid {
+    background:
+        radial-gradient(ellipse 55% 45% at 15% 25%, rgba(139,26,26,0.12) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 40% at 85% 75%, rgba(26,42,92,0.14) 0%, transparent 70%),
+        radial-gradient(ellipse 35% 35% at 50% 50%, rgba(74,26,92,0.08) 0%, transparent 70%);
+}
+
+.dash-bg-near {
+    background-image: radial-gradient(circle, rgba(201,162,39,0.055) 1px, transparent 1px);
+    background-size: 38px 38px;
+}
+
+/* ── Glowing orbs ───────────────────────────────────────────── */
+.dash-orb {
+    position: fixed;
+    border-radius: 50%;
+    pointer-events: none;
+    will-change: transform;
+    transition: transform 0.12s linear;
+    z-index: 0;
+}
+
+.dash-orb-1 {
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(139,26,26,0.16) 0%, transparent 70%);
+    top: -100px; left: -150px;
+    filter: blur(90px);
+    animation: dash-orb-drift1 12s ease-in-out infinite;
+}
+
+.dash-orb-2 {
+    width: 440px; height: 440px;
+    background: radial-gradient(circle, rgba(26,42,92,0.18) 0%, transparent 70%);
+    bottom: -80px; right: -120px;
+    filter: blur(80px);
+    animation: dash-orb-drift2 15s ease-in-out infinite;
+}
+
+.dash-orb-3 {
+    width: 280px; height: 280px;
+    background: radial-gradient(circle, rgba(74,26,92,0.12) 0%, transparent 70%);
+    top: 40%; left: 50%;
+    transform: translate(-50%, -50%);
+    filter: blur(70px);
+    animation: dash-orb-drift3 9s ease-in-out infinite;
+}
+
+@keyframes dash-orb-drift1 {
+    0%,100% { transform: translate(0,0) scale(1); }
+    33%      { transform: translate(30px,20px) scale(1.08); }
+    66%      { transform: translate(-15px,35px) scale(0.95); }
+}
+@keyframes dash-orb-drift2 {
+    0%,100% { transform: translate(0,0) scale(1); }
+    40%      { transform: translate(-25px,-20px) scale(1.1); }
+    70%      { transform: translate(18px,-30px) scale(0.94); }
+}
+@keyframes dash-orb-drift3 {
+    0%,100% { transform: translate(-50%,-50%) scale(1); }
+    50%      { transform: translate(-50%,-50%) scale(1.15); }
+}
+
+/* ── Floating particles ─────────────────────────────────────── */
+.dash-particles {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.dash-particle {
+    position: absolute;
+    bottom: -5%;
+    color: var(--gold);
+    font-family: var(--font-heading);
+    user-select: none;
+    animation: dash-particle-rise linear infinite;
+    will-change: transform, opacity;
+}
+
+@keyframes dash-particle-rise {
+    0%   { transform: translateY(0) rotate(0deg);    opacity: 0; }
+    10%  { opacity: 0.9; }
+    85%  { opacity: 0.6; }
+    100% { transform: translateY(-105vh) rotate(360deg); opacity: 0; }
+}
+
+/* ── Animations ─────────────────────────────────────────────── */
+@keyframes float-up {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 1100px) {
+    .dashboard-layout { grid-template-columns: 220px 1fr 220px; gap: 16px; padding: 20px; }
+}
+
+@media (max-width: 860px) {
+    .dashboard-layout { grid-template-columns: 1fr; }
+    .player-panel, .achievement-panel { position: static; }
+    .world-map-grid { grid-template-columns: 1fr 1fr; }
+    .region-card-camp { grid-column: span 2; }
+}
+
+@media (max-width: 500px) {
+    .world-map-grid { grid-template-columns: 1fr; }
+    .region-card-camp { grid-column: span 1; }
+}
+
+/* ── Language badge on region cards ────────────────────────── */
+.region-lang-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-family: var(--font-heading);
+    font-size: 0.58rem;
+    letter-spacing: 0.1em;
+    color: var(--gold);
+    background: rgba(0,0,0,0.45);
+    border: 1px solid rgba(201,162,39,0.3);
+    border-radius: 999px;
+    padding: 2px 8px;
+    z-index: 2;
+}
+
+/* ── Make panels fill full page height ──────────────────────── */
+.dashboard-layout {
+    min-height: calc(100vh - 70px - 64px);
+    align-items: stretch;
+}
+
+.player-panel,
+.achievement-panel {
+    position: sticky;
+    top: 90px;
+    min-height: calc(100vh - 70px - 96px);
+    display: flex;
+    flex-direction: column;
+}
+
+.achievement-list {
+    flex: 1;
+}
+
+/* ── Bigger region cards ────────────────────────────────────── */
+.region-card {
+    min-height: 160px;
+    padding: 32px 20px;
+}
+
+.region-card-camp {
+    min-height: 100px;
+}
+
+.world-map-grid {
+    gap: 24px;
+}
+
+.world-container {
+    gap: 24px;
+}

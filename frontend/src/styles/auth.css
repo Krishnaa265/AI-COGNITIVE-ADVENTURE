@@ -1,0 +1,162 @@
+/* ============================================================
+   Home, Login, Register Pages
+   ============================================================ */
+
+/* ── Home / Landing ─────────────────────────────────────────── */
+.home-hero {
+  min-height: calc(100vh - 70px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 60px 32px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Background rune circles */
+.home-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 50% 40%, rgba(201,162,39,0.08) 0%, transparent 60%),
+    radial-gradient(circle at 20% 80%, rgba(139,26,26,0.12) 0%, transparent 40%),
+    radial-gradient(circle at 80% 20%, rgba(26,42,92,0.12) 0%, transparent 40%);
+  pointer-events: none;
+}
+
+.home-crest {
+  font-size: 5rem;
+  line-height: 1;
+  margin-bottom: 32px;
+  filter: drop-shadow(0 0 24px rgba(201,162,39,0.6));
+  animation: float-up 0.8s ease forwards, flicker 4s ease-in-out 1s infinite;
+}
+
+.home-title {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 6vw, 4rem);
+  color: var(--gold);
+  letter-spacing: 0.08em;
+  text-shadow:
+    0 0 20px rgba(201,162,39,0.7),
+    0 0 60px rgba(201,162,39,0.3),
+    0 4px 8px rgba(0,0,0,0.6);
+  margin-bottom: 12px;
+  animation: float-up 0.8s ease 0.1s both;
+}
+
+.home-tagline {
+  font-family: var(--font-heading);
+  font-size: clamp(0.85rem, 2vw, 1.1rem);
+  color: var(--parchment-dark);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  animation: float-up 0.8s ease 0.2s both;
+}
+
+.home-lore {
+  max-width: 540px;
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  font-style: italic;
+  color: rgba(245,230,200,0.75);
+  line-height: 1.9;
+  margin-bottom: 48px;
+  animation: float-up 0.8s ease 0.3s both;
+}
+
+.home-cta-group {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+  animation: float-up 0.8s ease 0.4s both;
+}
+
+.home-rune-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(201,162,39,0.08);
+  pointer-events: none;
+}
+.home-rune-ring-1 { width: 500px; height: 500px; top: 50%; left: 50%; transform: translate(-50%,-50%); animation: spin-slow 40s linear infinite; }
+.home-rune-ring-2 { width: 700px; height: 700px; top: 50%; left: 50%; transform: translate(-50%,-50%); animation: spin-slow 60s linear infinite reverse; border-color: rgba(139,26,26,0.06); }
+.home-rune-ring-3 { width: 900px; height: 900px; top: 50%; left: 50%; transform: translate(-50%,-50%); animation: spin-slow 80s linear infinite; border-color: rgba(26,42,92,0.06); }
+
+/* ── Auth Pages (Login / Register) ──────────────────────────── */
+.auth-page {
+  min-height: calc(100vh - 70px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px;
+  position: relative;
+}
+
+.auth-card {
+  width: min(440px, 100%);
+  background: linear-gradient(160deg, #1e1208 0%, #2c1810 60%, #1a0f05 100%);
+  border: 2px solid var(--gold-dark);
+  border-radius: var(--radius-lg);
+  padding: 48px 40px;
+  position: relative;
+  box-shadow:
+    0 0 0 1px rgba(201,162,39,0.15),
+    0 0 60px rgba(0,0,0,0.8),
+    0 0 0 60px rgba(0,0,0,0.05) inset;
+  animation: float-up 0.6s ease forwards;
+}
+
+/* Corner decorations */
+.auth-card-corner {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  border-color: var(--gold);
+  border-style: solid;
+  opacity: 0.6;
+}
+.auth-card-corner-tl { top: 12px; left: 12px; border-width: 2px 0 0 2px; }
+.auth-card-corner-tr { top: 12px; right: 12px; border-width: 2px 2px 0 0; }
+.auth-card-corner-bl { bottom: 12px; left: 12px; border-width: 0 0 2px 2px; }
+.auth-card-corner-br { bottom: 12px; right: 12px; border-width: 0 2px 2px 0; }
+
+.auth-icon {
+  font-size: 2.5rem;
+  text-align: center;
+  display: block;
+  margin-bottom: 8px;
+  filter: drop-shadow(0 0 12px rgba(201,162,39,0.6));
+}
+
+.auth-footer-link {
+  text-align: center;
+  margin-top: 24px;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: rgba(245,230,200,0.55);
+}
+
+.auth-footer-link a {
+  color: var(--gold);
+  text-decoration: none;
+  font-family: var(--font-heading);
+  letter-spacing: 0.05em;
+  transition: color 0.2s;
+}
+.auth-footer-link a:hover { color: var(--gold-light); }
+
+.auth-error {
+  background: rgba(139,26,26,0.25);
+  border: 1px solid var(--blood-red);
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  color: #fca5a5;
+  text-align: center;
+}

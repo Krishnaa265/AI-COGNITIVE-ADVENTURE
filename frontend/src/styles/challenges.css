@@ -1,0 +1,497 @@
+/* ============================================================
+   Challenge Pages — Memory Forest, Language Lake,
+   Reasoning Peaks, History Ledger
+   ============================================================ */
+
+/* ── Shared Challenge Layout ────────────────────────────────── */
+.challenge-page {
+  min-height: calc(100vh - 70px);
+  padding: 40px 32px;
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+.challenge-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  text-align: center;
+  padding-bottom: 8px;
+  position: relative;
+}
+
+.challenge-zone-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-heading);
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 4px 14px;
+  border-radius: 999px;
+  margin-bottom: 8px;
+}
+
+/* Zone-specific accent colors */
+.zone-forest { background: rgba(26,92,58,0.25); border: 1px solid var(--emerald); color: #6ee7b7; }
+.zone-lake   { background: rgba(26,42,92,0.25); border: 1px solid #3b5bdb; color: #93c5fd; }
+.zone-peaks  { background: rgba(139,26,26,0.25); border: 1px solid var(--blood-red); color: #fca5a5; }
+.zone-temple { background: rgba(74,26,92,0.25); border: 1px solid #7a2d8a; color: #d8b4fe; }
+
+/* ── Challenge Control Card ─────────────────────────────────── */
+.challenge-card {
+  background: linear-gradient(140deg, #1e1208 0%, #2c1810 100%);
+  border: 2px solid var(--gold-dark);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.7);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  animation: float-up 0.5s ease forwards;
+}
+
+/* ── Timer Ring ─────────────────────────────────────────────── */
+.timer-display {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+  background: rgba(0,0,0,0.4);
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(201,162,39,0.2);
+}
+
+.timer-circle {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: conic-gradient(var(--gold) calc(var(--pct, 100) * 1%), rgba(0,0,0,0.4) 0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  box-shadow: 0 0 0 3px rgba(201,162,39,0.15), var(--glow-gold);
+  flex-shrink: 0;
+}
+
+.timer-circle-inner {
+  width: 78px;
+  height: 78px;
+  border-radius: 50%;
+  background: #1a0f05;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.timer-value {
+  font-family: var(--font-heading);
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--gold);
+  line-height: 1;
+}
+
+.timer-unit {
+  font-family: var(--font-heading);
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  color: rgba(245,230,200,0.5);
+  text-transform: uppercase;
+}
+
+.timer-warning .timer-value { color: #ef4444; animation: flicker 0.5s ease-in-out infinite; }
+
+/* Word/Unique counters next to timer */
+.timer-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ── Object Memory Grid ─────────────────────────────────────── */
+.memory-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 14px;
+}
+
+.memory-card {
+  background: linear-gradient(140deg, rgba(201,162,39,0.08) 0%, rgba(0,0,0,0.4) 100%);
+  border: 1px solid var(--gold-dark);
+  border-radius: var(--radius-md);
+  padding: 18px 12px;
+  text-align: center;
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  color: var(--parchment);
+  letter-spacing: 0.05em;
+  animation: float-up 0.3s ease both;
+  cursor: default;
+}
+
+.memory-card:nth-child(1) { animation-delay: 0.05s; }
+.memory-card:nth-child(2) { animation-delay: 0.10s; }
+.memory-card:nth-child(3) { animation-delay: 0.15s; }
+.memory-card:nth-child(4) { animation-delay: 0.20s; }
+.memory-card:nth-child(5) { animation-delay: 0.25s; }
+.memory-card:nth-child(6) { animation-delay: 0.30s; }
+.memory-card:nth-child(7) { animation-delay: 0.35s; }
+.memory-card:nth-child(8) { animation-delay: 0.40s; }
+.memory-card:nth-child(9) { animation-delay: 0.45s; }
+.memory-card:nth-child(10) { animation-delay: 0.50s; }
+
+.memory-card-icon { font-size: 1.8rem; display: block; margin-bottom: 8px; }
+
+.memory-hidden-msg {
+  text-align: center;
+  padding: 30px;
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  color: rgba(245,230,200,0.5);
+  letter-spacing: 0.08em;
+  background: rgba(0,0,0,0.3);
+  border-radius: var(--radius-md);
+  border: 1px dashed rgba(201,162,39,0.2);
+}
+
+/* ── Action Row ─────────────────────────────────────────────── */
+.challenge-actions {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* ── Language Toggle ────────────────────────────────────────── */
+.lang-toggle {
+  display: inline-flex;
+  background: rgba(0,0,0,0.4);
+  border: 1px solid var(--gold-dark);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.lang-toggle-btn {
+  padding: 10px 22px;
+  font-family: var(--font-heading);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  background: transparent;
+  border: none;
+  color: rgba(245,230,200,0.5);
+  cursor: pointer;
+  transition: var(--transition);
+}
+.lang-toggle-btn.active {
+  background: rgba(201,162,39,0.2);
+  color: var(--gold);
+}
+.lang-toggle-btn:hover:not(.active) { color: rgba(245,230,200,0.8); }
+
+/* ── Fluency Challenge – Category Banner ────────────────────── */
+.category-banner {
+  background: linear-gradient(90deg, rgba(26,42,92,0.4) 0%, rgba(59,91,219,0.15) 50%, rgba(26,42,92,0.4) 100%);
+  border: 1px solid #3b5bdb;
+  border-radius: var(--radius-md);
+  padding: 18px 24px;
+  text-align: center;
+}
+
+.category-banner-label {
+  font-family: var(--font-heading);
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(147,197,253,0.6);
+  margin-bottom: 4px;
+}
+
+.category-banner-name {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  color: #93c5fd;
+  text-shadow: 0 0 12px rgba(147,197,253,0.5);
+}
+
+/* ── Detective Mission ──────────────────────────────────────── */
+.detective-story-box {
+  background: rgba(139,26,26,0.08);
+  border: 1px solid rgba(139,26,26,0.4);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  font-family: var(--font-body);
+  font-style: italic;
+  line-height: 2;
+  color: var(--parchment);
+}
+
+.detective-question-card {
+  background: rgba(0,0,0,0.4);
+  border: 1px solid rgba(201,162,39,0.3);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.detective-q-num {
+  font-family: var(--font-heading);
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(245,230,200,0.5);
+}
+
+.detective-progress {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+}
+
+.detective-pip {
+  width: 32px;
+  height: 5px;
+  border-radius: 999px;
+  background: rgba(0,0,0,0.5);
+  border: 1px solid rgba(201,162,39,0.25);
+  transition: background 0.3s;
+}
+.detective-pip.done {
+  background: var(--gold-dark);
+}
+.detective-pip.active {
+  background: var(--gold);
+  box-shadow: 0 0 8px rgba(201,162,39,0.6);
+}
+
+/* ── Cognitive Report / Results ─────────────────────────────── */
+.cognitive-report {
+  background: linear-gradient(135deg, #0d0703 0%, #1e1208 100%);
+  border: 2px solid var(--gold);
+  border-radius: var(--radius-lg);
+  padding: 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  box-shadow: var(--glow-gold);
+  animation: float-up 0.5s ease forwards;
+}
+
+.cognitive-score-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+.cognitive-score-item {
+  background: rgba(0,0,0,0.4);
+  border: 1px solid rgba(201,162,39,0.25);
+  border-radius: var(--radius-md);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.cognitive-score-label {
+  font-family: var(--font-heading);
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(245,230,200,0.5);
+}
+
+.cognitive-score-val {
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--gold);
+}
+
+.cognitive-score-bar {
+  height: 5px;
+  border-radius: 999px;
+  background: rgba(0,0,0,0.5);
+  overflow: hidden;
+}
+.cognitive-score-bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--gold-dark), var(--gold-light));
+  box-shadow: 0 0 8px rgba(201,162,39,0.5);
+}
+
+.xp-earned-banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  padding: 18px;
+  background: linear-gradient(90deg, rgba(201,162,39,0.1) 0%, rgba(201,162,39,0.2) 50%, rgba(201,162,39,0.1) 100%);
+  border: 1px solid var(--gold-dark);
+  border-radius: var(--radius-md);
+}
+
+.xp-earned-label {
+  font-family: var(--font-heading);
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(245,230,200,0.6);
+}
+
+.xp-earned-val {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  color: var(--gold);
+  text-shadow: var(--glow-gold);
+}
+
+/* ── History / Quest Ledger ─────────────────────────────────── */
+.history-page {
+  min-height: calc(100vh - 70px);
+  padding: 40px 32px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.history-header {
+  text-align: center;
+  margin-bottom: 36px;
+}
+
+.history-scroll-container {
+  background: linear-gradient(140deg, #1e1208 0%, #2c1810 100%);
+  border: 2px solid var(--gold-dark);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.7);
+  animation: float-up 0.5s ease forwards;
+}
+
+/* Challenge type pill */
+.challenge-type-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-family: var(--font-heading);
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  font-weight: 600;
+}
+.pill-recall   { background: rgba(26,92,58,0.25); border: 1px solid var(--emerald); color: #6ee7b7; }
+.pill-fluency  { background: rgba(26,42,92,0.25); border: 1px solid #3b5bdb; color: #93c5fd; }
+.pill-detective { background: rgba(139,26,26,0.25); border: 1px solid var(--blood-red); color: #fca5a5; }
+
+/* Score bar in table */
+.score-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.score-bar-track {
+  flex: 1;
+  height: 6px;
+  background: rgba(0,0,0,0.5);
+  border-radius: 999px;
+  overflow: hidden;
+  min-width: 60px;
+}
+.score-bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--gold-dark), var(--gold));
+}
+.score-num {
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  color: var(--gold);
+  min-width: 32px;
+  text-align: right;
+}
+
+/* ── Status Message Banner ──────────────────────────────────── */
+.challenge-status-banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 24px;
+  background: rgba(0,0,0,0.4);
+  border: 1px solid rgba(201,162,39,0.2);
+  border-radius: var(--radius-md);
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+  color: rgba(245,230,200,0.8);
+  text-align: center;
+}
+
+.status-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(201,162,39,0.3);
+  border-top-color: var(--gold);
+  border-radius: 50%;
+  animation: spin-slow 1s linear infinite;
+  flex-shrink: 0;
+}
+
+/* ── Difficulty Selector ────────────────────────────────────── */
+.difficulty-group {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.difficulty-btn {
+  flex: 1;
+  min-width: 80px;
+  padding: 10px 16px;
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  font-weight: 600;
+  background: rgba(0,0,0,0.4);
+  border: 1px solid rgba(201,162,39,0.25);
+  border-radius: var(--radius-md);
+  color: rgba(245,230,200,0.55);
+  cursor: pointer;
+  transition: var(--transition);
+  text-align: center;
+}
+.difficulty-btn:hover {
+  border-color: var(--gold-dark);
+  color: rgba(245,230,200,0.85);
+}
+.difficulty-btn.selected {
+  background: rgba(201,162,39,0.15);
+  border-color: var(--gold);
+  color: var(--gold);
+  box-shadow: 0 0 12px rgba(201,162,39,0.25);
+}
+
+.difficulty-easy.selected   { background: rgba(26,92,58,0.2); border-color: var(--emerald); color: #6ee7b7; }
+.difficulty-medium.selected { background: rgba(201,162,39,0.15); border-color: var(--gold); color: var(--gold); }
+.difficulty-hard.selected   { background: rgba(139,26,26,0.2); border-color: var(--blood-red); color: #fca5a5; }
+
+/* ── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .challenge-page { padding: 20px 16px; }
+  .challenge-card { padding: 20px; }
+  .cognitive-score-grid { grid-template-columns: 1fr; }
+  .history-page { padding: 20px 16px; }
+}
