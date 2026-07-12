@@ -18,6 +18,10 @@ from app.routes.report_routes    import router as report_router
 from app.routes.pdf_report_routes import router as pdf_report_router
 from app.routes.vision_routes    import router as vision_router
 from app.routes.test_routes      import router as test_router
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 app = FastAPI(
     title="AI Cognitive Adventure",
