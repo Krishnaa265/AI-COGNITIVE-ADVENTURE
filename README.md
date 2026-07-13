@@ -234,15 +234,11 @@ Frontend runs at `http://localhost:5173`.
 ### Frontend → Vercel
 1. Push to GitHub
 2. Import repo on [vercel.com](https://vercel.com)
-3. Set **Root Directory** to `frontend`
-4. Add environment variable: `VITE_API_URL=https://your-backend.onrender.com`
 5. Deploy
 
 ### Backend → Render
 1. Import repo on [render.com](https://render.com)
 2. Set **Root Directory** to `backend`
-3. Set **Start Command** to `uvicorn app.main:app --host 0.0.0.0 --port $PORT`
-4. Add environment variable: `GEMINI_API_KEY=your_key_here`
 5. Deploy
 
 ---
