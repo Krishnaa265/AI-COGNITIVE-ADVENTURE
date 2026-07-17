@@ -2,6 +2,7 @@
 
 > **A gamified cognitive assessment platform for geriatric rehabilitation — built with React, FastAPI, and Google Gemini AI**
 
+https://ai-cognitive-adventure.netlify.app/
 ---
 
 ##  Overview
