@@ -322,7 +322,11 @@ export default function Dashboard() {
                     <div className="db-camp-menu" onClick={e => e.stopPropagation()}>
                         <h2>⛺ Explorer Camp</h2>
                         <button onClick={() => (window.location.href="/history")}>📜 Quest History</button>
-                        <button onClick={() => { const e=localStorage.getItem("userEmail"); window.open(`http://localhost:8000/pdf-report/${e}`,"_blank"); }}>
+                        <button onClick={() => { 
+                            const e=localStorage.getItem("userEmail"); 
+                            const backendUrl = import.meta.env.VITE_API_URL || "http://localhost:8000";
+                            window.open(`${backendUrl}/pdf-report/${email}`, "_blank");
+                            }}>
                             📄 Cognitive Report
                         </button>
                         <button className="db-camp-logout" onClick={() => { localStorage.removeItem("userEmail"); window.location.href="/login"; }}>

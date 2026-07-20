@@ -87,7 +87,8 @@ export default function WorldMap({ profile }) {
                         </button>
                         <button onClick={() => {
                             const email = localStorage.getItem("userEmail");
-                            window.open(`http://localhost:8000/pdf-report/${email}`, "_blank");
+                            const backendUrl = import.meta.env.VITE_API_URL || "http://localhost:8000";
+                            window.open(`${backendUrl}/pdf-report/${email}`, "_blank");
                         }}>
                             📄 Cognitive Report
                         </button>
