@@ -13,7 +13,7 @@ Patients earn XP, unlock new challenge zones, and progress through RPG ranks as 
 
 This project serves as both a **clinical research tool** and a **showcase of applied AI in healthcare**.
 
----
+--- 
 
 ##  Research Context
 
