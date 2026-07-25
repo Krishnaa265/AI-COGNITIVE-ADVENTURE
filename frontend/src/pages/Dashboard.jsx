@@ -325,7 +325,7 @@ export default function Dashboard() {
                         <button onClick={() => { 
                             const e=localStorage.getItem("userEmail"); 
                             const backendUrl = import.meta.env.VITE_API_URL || "http://localhost:8000";
-                            window.open(`${backendUrl}/pdf-report/${email}`, "_blank");
+                            window.open(`${backendUrl}/pdf-report/${e}`, "_blank");
                             }}>
                             📄 Cognitive Report
                         </button>
